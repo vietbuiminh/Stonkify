@@ -2,7 +2,7 @@ let inputCode = "GME";
 let check = true;
 var searchTerm = "gamestop";
 var beginDate = "20200101";
-const API_KEY = [];//["1PR7G7BXJJWPYLB8","RITOKDFR9LNEYJSV", "A4SQV1UMXB5SCEKB", "1YN7FOIXLEU0AOPY", "QGV5NT0BMJ1S7TGR"];
+const API_KEY = ["1PR7G7BXJJWPYLB8","RITOKDFR9LNEYJSV", "A4SQV1UMXB5SCEKB", "1YN7FOIXLEU0AOPY", "QGV5NT0BMJ1S7TGR"];
 const NYT_API = "KBOQGNQODf5P6fHZkRni7MTpFB7GZ5Md";
 
 function getInputValue(){
@@ -34,7 +34,24 @@ function fetchStockInfo() {
           console.log(searchTerm);
           fetchNews();
         }
-        
+        if (typeof data.Country !== "undefined") {
+          document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><h5>Country</h5><h6>${data.Country}</h6></div>`;
+        }
+        if (typeof data.Sector !== "undefined") {
+          document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><h5>Sector</h5><h6>${data.Sector}</h6></div>`;
+        }
+        if (typeof data.Industry !== "undefined") {
+          document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><h5>Industry</h5><h6>${data.Industry}</h6></div>`;
+        }
+        if (typeof data.FullTimeEmployees !== "undefined") {
+          document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><h6>${data.FullTimeEmployees}</h6><h5>Employees</h5></div>`;
+        }
+        if (typeof data.GrossProfitTTM !== "undefined") {
+          document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><h5>Gross Profit</h5><h6>$${data.GrossProfitTTM}</h6></div>`;
+        }
+        if (typeof data.Address !== "undefined") {
+          document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><a href="https://www.google.com/maps/search/${data.Address}" style="text-decoration: none;"><h5>🌎Address</h5><h6>${data.Address}</h6></a></div>`;
+        }
         if (typeof data.Description !== "undefined") {
           document.getElementById("stock-description").innerHTML = data.Description
         } else {
@@ -65,10 +82,12 @@ function makeChart(){
   console.log(date)
   console.log(open)
   console.log(close)
-
+  document.getElementById("stock-title").innerHTML += " $" + close[0] ;
+  document.getElementById("update-time").innerHTML = "Last update: " + date[0];
   date = date.reverse();
   open = open.reverse();
   close = close.reverse();
+
   if (date.length == 0) {
     alert("Please wait for 1 minutes and input again. We are using free API so the limit is only 1 call per minute 😭")
   } else {
