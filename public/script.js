@@ -6,7 +6,7 @@ const API_KEY = ["1PR7G7BXJJWPYLB8","RITOKDFR9LNEYJSV", "A4SQV1UMXB5SCEKB", "1YN
 const NYT_API = "KBOQGNQODf5P6fHZkRni7MTpFB7GZ5Md";
 
 function getInputValue(){
-  inputCode = document.getElementById("inputData").value;
+  inputCode = document.getElementById("inputData").value.toUpperCase();
   if (check == false) {
     alert("please input again after the reload");
     window.location.reload();
