@@ -34,6 +34,18 @@ function fetchStockInfo() {
           console.log(searchTerm);
           fetchNews();
         }
+        if (typeof data.EBS !== "undefined") {
+          document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><h5>EBS</h5><h6>${data.EBS}</h6></div>`;
+        }
+        if (typeof data.EBITDA !== "undefined") {
+          document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><h5>EBITDA</h5><h6>${data.EBITDA}</h6></div>`;
+        }
+        if (typeof data.DividendPerShare !== "undefined") {
+          document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><h5>Dividend/Share</h5><h6>${data.DividendPerShare}</h6></div>`;
+        }
+        if (typeof data.DividendYield !== "undefined") {
+          document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><h5>Dividend Yield</h5><h6>${data.DividendYield}</h6></div>`;
+        }
         if (typeof data.Country !== "undefined") {
           document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><h5>Country</h5><h6>${data.Country}</h6></div>`;
         }
@@ -48,6 +60,9 @@ function fetchStockInfo() {
         }
         if (typeof data.GrossProfitTTM !== "undefined") {
           document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><h5>Gross Profit</h5><h6>$${data.GrossProfitTTM}</h6></div>`;
+        }
+        if (typeof data.ProfitMargin !== "undefined") {
+          document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><h5>Profit Margin</h5><h6>${data.ProfitMargin}</h6></div>`;
         }
         if (typeof data.Address !== "undefined") {
           document.getElementById("info-output").innerHTML += `<div class="info-card" style="text-align: center;"><a href="https://www.google.com/maps/search/${data.Address}" style="text-decoration: none;"><h5>🌎Address</h5><h6>${data.Address}</h6></a></div>`;
@@ -72,18 +87,21 @@ function makeChart(){
   let date = []
   let open = []
   let close = []
+  let volume = []
   
   for (var item in data["Time Series (Daily)"]) {
     date.push(item)
     open.push(data["Time Series (Daily)"][item]["1. open"])
     close.push(data["Time Series (Daily)"][item]["4. close"])
+    volume.push(data["Time Series (Daily)"][item]["6. volume"])
     console.log(data["Time Series (Daily)"][item])
   }
   console.log(date)
   console.log(open)
   console.log(close)
+  console.log(volume)
   document.getElementById("stock-title").innerHTML += " $" + close[0] ;
-  document.getElementById("update-time").innerHTML = "Last update: " + date[0];
+  document.getElementById("update-time").innerHTML = "Last update: " + date[0] + " | Volume: " + volume[0];
   date = date.reverse();
   open = open.reverse();
   close = close.reverse();
