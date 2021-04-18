@@ -157,8 +157,12 @@ function fetchNews() {
     var articles = data.response.docs;
     document.getElementById("output").innerHTML = "";
     for (var i = 0; i < articles.length; i++) {
+      let link = "";
+      if (articles[i].multimedia.length > 0) {
+        link = articles[i].multimedia[0].url;
+      }
       document.getElementById("output").innerHTML += 
-      `<a href="${articles[i].web_url}"style="text-decoration: none"><div class="news-box" style='padding-top: 10px;'><img src="https://www.nytimes.com/${articles[i].multimedia[0].url}" style="float: left; height: 100px; padding: 10px;"alt="${articles[i].multimedia[0].url}"/><h3>${articles[i].headline.main}</h3><h4>${articles[i].pub_date}</h4><p>${articles[i].snippet}<p><p>${articles[i].lead_paragraph}</p></div></a>`;
+      `<a href="${articles[i].web_url}"style="text-decoration: none"><div class="news-box" style='padding-top: 10px;'><img src="https://www.nytimes.com/${link}" style="float: left; height: 100px; padding: 10px;"alt="${link}"/><h3>${articles[i].headline.main}</h3><h4>${articles[i].pub_date}</h4><p>${articles[i].snippet}<p><p>${articles[i].lead_paragraph}</p></div></a>`;
     }
   })
 }
