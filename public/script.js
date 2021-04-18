@@ -183,7 +183,7 @@ function makeChart(){
 function fetchNews() {
   console.log("check: " + beginDate);
   console.log(searchTerm);
-  let NYT_API_CALL = `https://api.nytimes.com/svc/search/v2/articlesearch.json?&begin-date=${beginDate}&q=${searchTerm}&sort=relevance&api-key=${NYT_API}`;
+  let NYT_API_CALL = `https://api.nytimes.com/svc/search/v2/articlesearch.json?&begin-date=${beginDate}&q=${searchTerm}&sort=newest&api-key=${NYT_API}`;
   console.log(NYT_API_CALL);
   fetch(NYT_API_CALL)
   .then((resp) => resp.json())
